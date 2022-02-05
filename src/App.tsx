@@ -29,10 +29,8 @@ const theme = createTheme({
   },
 });
 
-// #2e7d32   success
-// #0288d1   info
-// #d32f2f   error
-// #9c27b0   primary
+const { REACT_APP_API_URL, REACT_APP_API_HOST, REACT_APP_API_KEY } =
+  process.env;
 
 const App: FC = () => {
   const [password, setPassword] = useState<string>("");
@@ -63,17 +61,17 @@ const App: FC = () => {
     setPassword(data.password);
     setPasswordStrength(((data.score + 1) / 5) * 100);
     if (data.score === 0 || data.score === 1) {
-      setPasswordStrengthColor('error');
-      setPasswordStrengthText(data.score === 0 ? 'Very weak' : 'Weak');
-      setPasswordStrengthTextColor('#d32f2f');
+      setPasswordStrengthColor("error");
+      setPasswordStrengthText(data.score === 0 ? "Very weak" : "Weak");
+      setPasswordStrengthTextColor("#d32f2f");
     } else if (data.score === 2) {
-      setPasswordStrengthColor('info');
-      setPasswordStrengthText('Medium');
-      setPasswordStrengthTextColor('#0288d1');
+      setPasswordStrengthColor("info");
+      setPasswordStrengthText("Medium");
+      setPasswordStrengthTextColor("#0288d1");
     } else {
-      setPasswordStrengthColor('success');
-      setPasswordStrengthText(data.score === 3 ? 'Strong' : 'Very strong');
-      setPasswordStrengthTextColor('#2e7d32');
+      setPasswordStrengthColor("success");
+      setPasswordStrengthText(data.score === 3 ? "Strong" : "Very strong");
+      setPasswordStrengthTextColor("#2e7d32");
     }
   };
 
@@ -85,13 +83,12 @@ const App: FC = () => {
     setIsFetchingPassword(true);
     try {
       const res = await fetch(
-        `https://password-generator-and-checker.p.rapidapi.com/generator/strong?lowercase=${lowercase}&uppercase=${uppercase}&numbers=${numbers}&symbols=${specialChars}&length=${passwordLength}`,
+        `${REACT_APP_API_URL}/strong?lowercase=${lowercase}&uppercase=${uppercase}&numbers=${numbers}&symbols=${specialChars}&length=${passwordLength}`,
         {
           method: "GET",
           headers: {
-            "x-rapidapi-host": "password-generator-and-checker.p.rapidapi.com",
-            "x-rapidapi-key":
-              "ec34d9069dmsh0a9a3ec61c4f322p121e36jsn53f89b10a240",
+            "x-rapidapi-host": REACT_APP_API_HOST as string,
+            "x-rapidapi-key": REACT_APP_API_KEY as string,
           },
         }
       );

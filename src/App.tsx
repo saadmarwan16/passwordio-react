@@ -170,7 +170,7 @@ const App: FC = () => {
           </Typography>
         </StyledHorizBox>
         <StyledHorizBox>
-          <CopyToClipboard onCopy={() => handleCopyClick()} text="Some text">
+          <CopyToClipboard onCopy={() => handleCopyClick()} text={password}>
             <Button variant="outlined">Copy</Button>
           </CopyToClipboard>
           <Button
